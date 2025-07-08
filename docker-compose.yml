@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+
+  postgresql:
+    build:
+      context: infrastructure/postgresql
+      dockerfile: Dockerfile
+    image: postgres:15-alpine
+    container_name: ecommerce-postgresql
+    environment:
+      POSTGRES_DB: ecommerce_db
+      POSTGRES_USER: ecommerceuser
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_root_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/postgresql/init:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    networks:
+      - ecommerce-network
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecommerceuser -d ecommerce_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    secrets:
+      - pg_root_password
+
+  platform-service:
+    build:
+      context: services/platform-service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: platform-service
+    depends_on:
+      - postgresql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/ecommerce_db
+      SPRING_DATASOURCE_USERNAME: ecommerceuser
+      SPRING_DATASOURCE_PASSWORD_FILE: /run/secrets/pg_root_password
+    secrets:
+      - pg_root_password
+
+secrets:
+  pg_root_password:
+    file: infrastructure/postgresql/init/pg_root_password.txt
+
+volumes:
+  postgres_data:
+
+networks:
+  ecommerce-network:
+    driver: bridge
+

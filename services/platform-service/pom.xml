@@ -7,14 +7,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.api</groupId>
+        <groupId>com.ecommerce</groupId>
         <artifactId>ECommerceAIAgent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>platform-service</artifactId>
     <name>platform-service</name>
-    <description>Platform module of the AI Agent API for E-Commerce platforms like Trendyol, Hepsiburada, and Amazon</description>
+    <description>package for platform related services</description>
     <url>https://github.com/hselimtuna/ECommerceAIAgent</url>
 
     <licenses>
@@ -70,14 +71,6 @@
             <version>2.7.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.11.0</version>
-            <scope>test</scope>
-        </dependency>
-
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -96,6 +89,7 @@
     </dependencies>
 
     <build>
+        <finalName>platform-service</finalName>
         <plugins>
             <!-- Spring Boot Maven Plugin -->
             <plugin>

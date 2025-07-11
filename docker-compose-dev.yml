@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  postgresql:
+    build:
+      context: ./infrastructure/postgresql
+    container_name: postgres-dev
+    ports:
+      - "5433:5432"
+    secrets:
+      - pg_root_password
+    environment:
+      POSTGRES_DB: ecommerce_dev_db
+      POSTGRES_USER: ecommerceuser
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_root_password
+    volumes:
+      - dev_postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/postgresql/init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ecommerce-network
+
+  platform-service:
+    build:
+      context: ./services/platform-service
+    container_name: platform-service-dev
+    depends_on:
+      - postgresql
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/ecommerce_dev_db
+      SPRING_DATASOURCE_USERNAME: ecommerceuser
+      SPRING_DATASOURCE_PASSWORD_FILE: /run/secrets/pg_root_password
+    secrets:
+      - pg_root_password
+    networks:
+      - ecommerce-network
+
+secrets:
+  pg_root_password:
+    file: infrastructure/postgresql/init/pg_root_password.txt
+
+volumes:
+  dev_postgres_data:
+
+networks:
+  ecommerce-network:
+    driver: bridge

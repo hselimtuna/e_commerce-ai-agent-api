@@ -1,17 +1,14 @@
-package com.api.platform.service;
+package com.ecommerce.platform.service;
 
-import com.api.platform.enums.Platform;
-import com.api.platform.exception.platform.PlatformNotFoundException;
-import com.api.platform.service.impl.PlatformSelectionServiceImpl;
+import com.ecommerce.platform.enums.Platform;
+import com.ecommerce.platform.exception.platform.PlatformNotFoundException;
+import com.ecommerce.platform.service.impl.PlatformSelectionServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import static org.mockito.Mockito.*;
 
 @Slf4j
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -46,7 +43,7 @@ class PlatformServiceImplTest {
     @ParameterizedTest(name = "For Platform {0}, Do the output is right ?")
     @EnumSource(Platform.class)
     void testHandlePlatformSelection_AllPlatforms(Platform platform) {
-        String result = platformSelectionService.handlePlatformSelection(platform);
+        String result = platformSelectionService.handlePlatformSelection(platform).join();
 
         String expected = switch (platform) {
             case TRENDYOL -> "Trendyol logic...";

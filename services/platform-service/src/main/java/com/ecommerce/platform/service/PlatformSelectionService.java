@@ -2,7 +2,9 @@ package com.ecommerce.platform.service;
 
 import com.ecommerce.platform.enums.Platform;
 
+import java.util.concurrent.CompletableFuture;
+
 public interface PlatformSelectionService {
 
-    String handlePlatformSelection (Platform platform);
+    CompletableFuture<String> handlePlatformSelection (Platform platform);
 }

@@ -3,7 +3,12 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### Project ###
 infrastructure/postgresql/init/pg_root_password.txt
+keystore.p12
+services/platform-service/src/main/resources/application.properties
+services/auth-service/src/main/resources/application.properties
 
 ### STS ###
 .apt_generated

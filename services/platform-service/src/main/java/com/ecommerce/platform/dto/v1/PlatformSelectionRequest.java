@@ -1,4 +1,4 @@
-package com.ecommerce.platform.dto;
+package com.ecommerce.platform.dto.v1;
 
 import com.ecommerce.platform.enums.Platform;
 import jakarta.validation.constraints.NotNull;

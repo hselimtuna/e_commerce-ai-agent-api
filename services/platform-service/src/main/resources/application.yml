@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ecommerce-platform-service
+  profiles:
+    active: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

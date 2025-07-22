@@ -1,0 +1,10 @@
+spring:
+  main:
+    banner-mode: console
+  profiles:
+    active: dev
+
+logging:
+  level:
+    org.springframework: INFO
+    root: INFO

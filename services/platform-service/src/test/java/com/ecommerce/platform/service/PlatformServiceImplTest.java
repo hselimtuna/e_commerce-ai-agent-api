@@ -46,9 +46,9 @@ class PlatformServiceImplTest {
         String result = platformSelectionService.handlePlatformSelection(platform).join();
 
         String expected = switch (platform) {
-            case TRENDYOL -> "Trendyol logic...";
-            case HEPSIBURADA -> "Hepsiburada logic...";
-            case AMAZON -> "Amazon logic...";
+            case TRENDYOL -> "Trendyol integration processed successfully";
+            case HEPSIBURADA -> "Hepsiburada integration processed successfully";
+            case AMAZON -> "Amazon integration processed successfully";
         };
         Assertions.assertEquals(expected, result);
     }

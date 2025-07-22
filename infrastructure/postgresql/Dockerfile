@@ -7,6 +7,3 @@ RUN apk add --no-cache \
     && rm -rf /var/cache/apk/*
 
 EXPOSE 5432
-
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["postgres", "-c"]

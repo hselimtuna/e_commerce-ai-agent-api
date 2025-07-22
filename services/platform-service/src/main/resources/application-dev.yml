@@ -4,7 +4,7 @@ spring:
       on-profile: dev
 
 server:
-  port: 8081
+  port: 8082
   servlet:
     context-path: /api
 
@@ -20,6 +20,7 @@ logging:
     com.ecommerce.platform: DEBUG
     org.springframework.web: DEBUG
     org.springframework.boot.web: DEBUG
+    root: INFO
 
 platform:
   processing:
